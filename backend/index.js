@@ -3,17 +3,18 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
+import userRoute from "./routes/user.route.js";
 
 dotenv.config({});
 
 const app = express();
 
-app.get("/",(req,res)=>{
-    return res.status(200).json({
-        message:"Welcome",
-        success:true
-    })
-})
+// app.get("/",(req,res)=>{
+//     return res.status(200).json({
+//         message:"Welcome",
+//         success:true
+//     })
+// }) 
 
 
 
@@ -27,6 +28,15 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+
+// api
+app.use('/api/v1/user',userRoute);
+
+
+// routes
+// http://localhost:8000/api/v1/user/register
+// http://localhost:8000/api/v1/user/login
+// http://localhost:8000/api/v1/user/profile/update
 
 // server on
 const PORT = process.env.PORT || 3000;
