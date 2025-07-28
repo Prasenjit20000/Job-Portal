@@ -18,6 +18,7 @@ export const registerCompany = async (req,res) =>{
                 success : false
             })
         }
+        // here we don't  check the role of user so a student also create a company
         company = await Company.create({
             name : companyName,
             userId : req.id
@@ -45,6 +46,10 @@ export const getCompany = async(req,res)=>{
                 success : false
             })
         }
+        return res.status(200).json({
+            companies,
+            success : true
+        })
     } catch (error) {
         console.log(error);
     }
@@ -53,6 +58,7 @@ export const getCompany = async(req,res)=>{
 // get company by id
 export const getCompanyById = async(req,res)=>{
     try {
+        // req.params.id -> give in the url
         const companyId = req.params.id;
         const company = await Company.findById(companyId);
         if(!company){
@@ -73,7 +79,7 @@ export const getCompanyById = async(req,res)=>{
 export  const updateCompany = async(req,res)=>{
     try {
         const {name, description,website,location} = req.body;
-        const file = req.file;
+        // const file = req.file;
 
 
         const updatedData = {name, description,website,location}

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const jobSchema = new mongoose.Schema({
 
-    tilte: {
+    title: {
         type: String,
         required: true
     },
@@ -25,6 +25,10 @@ const jobSchema = new mongoose.Schema({
     jobType:{
         type:String,
         required:true
+    },
+    experienceLevel:{
+        type : Number,
+        required : true
     },
     // opennings
     position:{
