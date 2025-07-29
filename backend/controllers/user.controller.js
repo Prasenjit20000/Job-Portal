@@ -6,7 +6,7 @@ export const register = async (req, res) => {
     try {
 
         const { fullname, email, phoneNumber, password, role } = req.body;
-
+        console.log(req.body)
         // if any field is empty or not found 
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
