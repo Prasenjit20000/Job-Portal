@@ -8,9 +8,16 @@ import { Link, useNavigate } from "react-router-dom"
 import { USER_API_END_POINT } from '../utils/constants'
 import axios from "axios"
 import { toast } from "sonner"
+import { useDispatch, useSelector } from "react-redux"
+import { setLoading } from '../../redux/authSlice'
+import { Loader2 } from 'lucide-react'
 
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {loading} = useSelector(store => store.auth);
+
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -22,19 +29,28 @@ const Login = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   }
 
-  const navigate = useNavigate()
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(input)
-    const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      withCredentials : true,
-    });
-    if (res.data.success) {
-      navigate("/")
-      toast.success(res.data.message)
+    try {
+      // when click login button setLoading action will dispatch
+      dispatch(setLoading(true)); //start here
+      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        navigate("/")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      toast.error(error.response.data.message)
+      console.log(error)
+    }
+    finally{
+      // loading end here
+      dispatch(setLoading(false));
     }
   }
   return (
@@ -92,9 +108,13 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-          <div className='flex justify-center'>
+          {
+            loading ? 
+            <Button className='w-full mt-4 mb-1'><Loader2 className='animate-spin'/>Please wait</Button> :
+            (<div className='flex justify-center'>
             <Button type='submit' className='w-full mt-4 mb-1'>Login</Button>
-          </div>
+          </div>)
+          }
           <div className='flex justify-center text-sm'>
             <p><span className='text-gray-600'>Don't have an account?</span><Link to='/signup' className='text-blue-600'>Signup</Link></p>
           </div>
