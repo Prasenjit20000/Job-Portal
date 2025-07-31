@@ -15,15 +15,9 @@ const LatestJobCard = () => {
                 <p className='text-sm text-gray-400 pb-2'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, delectus.</p>
             </div>
             <div>
-                <Badge variant='ghost' className='text-blue-700 font-bold'>
-                    12 Positions
-                </Badge>
-                <Badge variant='ghost' className='text-[#F83002] font-bold'>
-                     Part Time
-                </Badge>
-                <Badge variant='ghost' className='text-[#7209b7] font-bold'>
-                    24 LPA
-                </Badge>
+                <Badge variant='ghost' className='text-blue-700 font-bold'>12 Positions</Badge>
+                <Badge variant='ghost' className='text-[#F83002] font-bold'>Part Time</Badge>
+                <Badge variant='ghost' className='text-[#7209b7] font-bold'>24 LPA</Badge>
             </div>
         </div>
         

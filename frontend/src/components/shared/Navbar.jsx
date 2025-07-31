@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { User, LogOut } from 'lucide-react';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const user = false;
+    const {user} = useSelector(store=>store.auth);
     return (
         <div className='bg-white'>
             <div className='flex items-center justify-between mx-20 max-w-7xl h-16'>
@@ -15,9 +16,9 @@ const Navbar = () => {
                 </div>
                 <div className='flex items-center gap-12'>
                     <ul className='flex font-medium items-center gap-5'>
-                        <li>Home</li>
-                        <li>Jobs</li>
-                        <li>Browse</li>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/jobs'>Jobs</Link></li>
+                        <li><Link to='/browse'>Browse</Link></li>
                     </ul>
                     {
                         !user ? (
@@ -48,7 +49,7 @@ const Navbar = () => {
                                 <div className="flex flex-col items-start mt-2">
                                     <div className='flex justify-center items-center text-gray-600'>
                                         <User size={22} />
-                                        <Button variant="link" className="text-gray-600 ">View Profile</Button>
+                                        <Button variant="link" className="text-gray-600 "><Link to='/profile'>View Profile</Link></Button>
                                     </div>
                                     <div className='flex justify-center items-center text-gray-600'>
                                         <LogOut size={22} />

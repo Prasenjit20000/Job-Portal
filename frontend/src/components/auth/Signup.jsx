@@ -58,6 +58,7 @@ const Signup = () => {
         },
         withCredentials: true,
       });
+      console.log(res);
       if (res.data.success) {
         navigate("/login")
         toast.success(res.data.message)
