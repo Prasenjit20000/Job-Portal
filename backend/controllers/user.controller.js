@@ -1,12 +1,16 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUrl from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
 
         const { fullname, email, phoneNumber, password, role } = req.body;
-        console.log(req.body)
+        const file = req.file;
+        const fileUri = getDataUrl(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         // if any field is empty or not found 
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
@@ -32,7 +36,10 @@ export const register = async (req, res) => {
             email,
             phoneNumber,
             password: hashedPassword,
-            role
+            role,
+            profile :{
+                profilePhoto : cloudResponse.secure_url,
+            }
         })
         return res.status(201).json({
             message: "Account created successfully",
@@ -81,9 +88,9 @@ export const login = async (req, res) => {
         user = {
             _id: user._id,
             fullname: user.fullname,
-            email: user.email, 
+            email: user.email,
             phoneNumber: user.phoneNumber,
-            password: user.password,
+            // password: user.password,
             role: user.role,
             profile: user.profile
         }
@@ -111,12 +118,15 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        // const file = req.file
-
+        const file = req.file
+        const fileURI = getDataUrl(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileURI.content,{
+            resource_type: "raw", //this is important for non-image files like PDFs
+        });
 
         const userId = req.id; //middleware authentication
         console.log(userId);
-        let user = await User.findById( userId );
+        let user = await User.findById(userId);
 
         if (!user) {
             return res.status(400).json({
@@ -144,7 +154,13 @@ export const updateProfile = async (req, res) => {
             const skillsArray = skills.split(",");
             user.profile.skills = skillsArray
         }
-    
+        if (cloudResponse) {
+            // save the cloudinary url
+            user.profile.resume = cloudResponse.secure_url;
+            // save the original resume name
+            user.profile.resumeOriginalName = file.originalname;
+        }
+
         await user.save();   //save in database
 
         user = {
