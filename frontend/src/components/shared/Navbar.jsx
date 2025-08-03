@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, User2 } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
@@ -40,7 +40,7 @@ const Navbar = () => {
                         <li><Link to='/browse'>Browse</Link></li>
                     </ul>
                     {
-                        user===null ? (
+                        user === null ? (
                             <div className='flex items-center gap-2'>
                                 <Link to='/login'><Button variant='outline'>Login</Button>
                                 </Link>
@@ -52,13 +52,17 @@ const Navbar = () => {
                         ) : (<Popover>
                             <PopoverTrigger>
                                 <Avatar className='cursor-pointer'>
-                                    <AvatarImage src={`${user?.profile?.profilePhoto}`} />
+                                    {
+                                        user.profile.profilePhoto ? <AvatarImage src={`${user?.profile?.profilePhoto}`} /> : <AvatarImage src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' />
+                                    }
                                 </Avatar>
                             </PopoverTrigger>
                             <PopoverContent className='w-80'>
                                 <div className='flex gap-4'>
                                     <Avatar className='cursor-pointer'>
-                                        <AvatarImage src={`${user?.profile?.profilePhoto}`} />
+                                        {
+                                            user.profile.profilePhoto ? <AvatarImage src={`${user?.profile?.profilePhoto}`} /> : <AvatarImage src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' />
+                                        }
                                     </Avatar>
                                     <div>
                                         <h4 className='font-medium py-0.5'>{user?.fullname}</h4>

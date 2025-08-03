@@ -44,7 +44,7 @@ export const getAllJobs = async (req, res) => {
                 { description: { $regex: keyword, $options: "i" } },
             ]
         };
-        // here inside the we found the company whose job it is and also found the userId who created this job.
+        // here inside the jobs we found the company whose job it is and also found the userId who created this job.
         // and using populate method we can show the deatils of company and user
         const jobs = await Job.find(query).populate({
             path : "company"
@@ -68,7 +68,9 @@ export const getAllJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
     try {
         const jobId = req.params.id;
-        const job = await Job.findById(jobId);
+        const job = await Job.findById(jobId).populate({
+            path : "applications"
+        });
         if (!job) {
             return res.status(404).json({
                 message: "Job not found",
