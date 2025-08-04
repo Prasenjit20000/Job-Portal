@@ -33,8 +33,6 @@ const Jobs = () => {
 
                             </div>
                     }
-
-
                 </div>
             </div>
             {/* jobs according to this filter */}
