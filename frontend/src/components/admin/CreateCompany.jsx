@@ -6,22 +6,31 @@ import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { COMPANY_API_END_POINT } from '../utils/constants'
+import { toast } from 'sonner'
+import { useDispatch } from 'react-redux'
+import { setSingleCompany } from '../../redux/companySlice'
 const CreateCompany = () => {
     const navigate = useNavigate();
-    const [companyName,setCompanyName] = useState('');
+    const dispatch = useDispatch();
+    const [companyName, setCompanyName] = useState('');
     const registerNewCompany = async () => {
+        console.log(companyName);
         try {
-            const res = axios.post(`${COMPANY_API_END_POINT}/resgister`,{companyName},{
-                headers : {
-                    'Content-Type' : 'application/json'
+            const res = await axios.post(`${COMPANY_API_END_POINT}/register`, { companyName }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                withCredentials:true
+                withCredentials: true
             });
-            if(res.data.success){
-
+            if (res.data.success) {
+                dispatch(setSingleCompany(res.data.company));
+                toast.success(res.data.message);
+                const companyId = res.data.company._id;
+                navigate(`/admin/companies/${companyId}`);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error(error.response.data.message);
         }
     }
     return (
@@ -37,11 +46,11 @@ const CreateCompany = () => {
                     type='text'
                     className='my-2'
                     placeholder='Mirosoft.'
-                    onChange={(e)=>setCompanyName(e.target.value)}
+                    onChange={(e) => setCompanyName(e.target.value)}
                 />
                 <div className='flex items-center gap-2 my-10'>
                     <Button onClick={() => navigate('/admin/companies')}>Cancel</Button>
-                    <Button className='' variant='outline'>Continue</Button>
+                    <Button className='' variant='outline' onClick={registerNewCompany}>Continue</Button>
                 </div>
             </div>
         </div>
