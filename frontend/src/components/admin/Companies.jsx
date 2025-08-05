@@ -20,7 +20,7 @@ const Companies = () => {
         <div>
             <Navbar />
             <div className='max-w-6xl mx-auto my-10' >
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center mb-10'>
                     <Input
                         className='w-fit'
                         placeholder='Filter by name'

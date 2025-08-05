@@ -10,13 +10,15 @@ import { COMPANY_API_END_POINT } from '../utils/constants'
 import { toast } from 'sonner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import getCompanyById from '../../hooks/getCompanyById'
 
 const CompanySetup = () => {
     const navigate = useNavigate();
     const params = useParams();
     const companyId = params.id;
-    const [loading,setLoading] = useState(false);
-    const {singleCompany} = useSelector(store=>store.company);
+    getCompanyById(companyId);
+    const [loading, setLoading] = useState(false);
+    const { singleCompany } = useSelector(store => store.company);
     const [input, setInput] = useState({
         name: "",
         description: "",
@@ -45,13 +47,13 @@ const CompanySetup = () => {
         try {
             // formdata always send as raw formData. Don't use {formData} when send to backend
             // but normal variable can be send using {name}
-            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${companyId}`,formData,{
-                headers : {
-                    'Content-Type' : 'multipart/form-data'
+            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${companyId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 },
-                withCredentials : true,
+                withCredentials: true,
             });
-            if(res.data.success){
+            if (res.data.success) {
                 console.log(res.data);
                 navigate('/admin/companies');
                 toast.success(res.data.message);
@@ -59,26 +61,26 @@ const CompanySetup = () => {
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
-    useEffect(()=>{
-        setInput({
-            name : singleCompany.name || "",
-            description : singleCompany.description || "",
-            website : singleCompany.website || "",
-            location : singleCompany.location || "",
-            file : singleCompany.file || null
-        })
-    },[singleCompany]);
+    useEffect(() => {
+            setInput({
+                name: singleCompany.name || "",
+                description: singleCompany.description || "",
+                website: singleCompany.website || "",
+                location: singleCompany.location || "",
+                file: singleCompany.file || null
+            })
+    }, [singleCompany]);
     return (
         <div>
             <Navbar />
             <div className='max-w-xl mx-auto my-10'>
                 <form onSubmit={submitHandler}>
                     <div className='flex items-center gap-5 p-8'>
-                        <Button onClick={()=>navigate('/admin/companies')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold'>
+                        <Button onClick={() => navigate('/admin/companies')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold'>
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
@@ -131,8 +133,8 @@ const CompanySetup = () => {
                         </div>
                     </div>
                     {
-                        loading ? <Button type='submit' className='w-full mt-8' ><Loader2 className='animate-spin'/></Button>
-                        :<Button type='submit' className='w-full mt-8' >Update</Button>
+                        loading ? <Button type='submit' className='w-full mt-8' ><Loader2 className='animate-spin' /></Button>
+                            : <Button type='submit' className='w-full mt-8' >Update</Button>
                     }
                 </form>
             </div>
