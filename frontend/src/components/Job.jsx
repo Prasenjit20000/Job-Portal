@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { useNavigate } from 'react-router-dom'
 
 const Job = ({job}) => {
+  console.log(job);
   const navigate = useNavigate();
   const calculateDays = (mongodbTime)=>{
     const createdAt = new Date(mongodbTime);
@@ -23,7 +24,11 @@ const Job = ({job}) => {
       <div className='flex items-center my-2 gap-2'>
         <Button variant='outline' size='icon' className='p-6'>
           <Avatar>
-            <AvatarImage src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg" />
+            {
+              job?.company?.logo ? <AvatarImage src={`${job?.company?.logo}`} /> : <AvatarImage src="https://cdn-icons-png.flaticon.com/128/2611/2611445.png" />
+            }
+            
+
           </Avatar>
         </Button>
         <div>
