@@ -17,7 +17,7 @@ const Job = ({job}) => {
   return (
     <div className='p-5 border border-gray-100 rounded-md shadow-xl'>
       <div className='flex justify-between items-center'>
-        <p className='text-sm text-gray-500'>{calculateDays(job.createdAt)===0?'Today':`${calculateDays(job.createdAt)} days ago`}</p>
+        <p className='text-sm text-gray-500'>{calculateDays(job?.createdAt)===0?'Today':`${calculateDays(job?.createdAt)} days ago`}</p>
         <Button variant='outline' className='rounded-full' size='icon'><Bookmark /></Button>
       </div>
 

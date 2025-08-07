@@ -9,12 +9,14 @@ import AppliedJobTable from './AppliedJobTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
+import useGetAppliedJob from '../hooks/useGetAppliedJob'
 
 const Profile = () => {
+    useGetAppliedJob();
     const isResume = true;
     const [open, setOpen] = useState();
     // retrive logged in user data
-    const { user } = useSelector(store => store.auth)
+    const { user } = useSelector(store => store.auth);
     return (
         <div>
             <Navbar />
