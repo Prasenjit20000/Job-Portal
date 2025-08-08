@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import { useNavigate } from 'react-router-dom'
 
 const Job = ({job}) => {
-  console.log(job);
   const navigate = useNavigate();
   const calculateDays = (mongodbTime)=>{
     const createdAt = new Date(mongodbTime);

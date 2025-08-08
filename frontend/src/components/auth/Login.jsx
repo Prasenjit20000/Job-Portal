@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -16,8 +16,8 @@ import { Loader2 } from 'lucide-react'
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {loading} = useSelector(store => store.auth);
-
+  const {loading,user} = useSelector(store => store.auth);
+  
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -55,12 +55,17 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   }
+  useEffect(()=>{
+    if(user){
+      navigate('/');
+    }
+  })
   return (
     <div>
       <Navbar />
-      <div className='flex items-center justify-center max-w-7xl mx-auto'>
-        <form onSubmit={submitHandler} className=' w-1/2 border border-gray-200 p-4 rounded-md my-10'>
-          <h1 className='font-bold text-xl mb-5'>Sign up</h1>
+      <div className='md:flex md:items-center md:justify-center md:max-w-7xl'>
+        <form onSubmit={submitHandler} className=' md:w-1/2 border border-gray-200 p-4 rounded-md my-10'>
+          <h1 className='font-bold text-xl md:text-2xl mb-5'>Login</h1>
 
           <div className='my-3'>
             <Label className='my-1.5'>Email</Label>

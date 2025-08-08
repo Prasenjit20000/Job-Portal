@@ -18,15 +18,14 @@ const HeroSection = () => {
         <div className='text-center'>
             <div className='flex flex-col gap-5 my-18'>
                 <span className='px-4 py-2 rounded-full text-[#F83002] bg-gray-100 font-medium'>No. 1 Job Hunt Website</span>
-                <h1 className='text-5xl font-bold pt-4'>
+                <h1 className='md:text-5xl text-3xl font-bold pt-4'>
                     Search, Apply & <br />
                     Get Your <span className='text-[#6A38C2]'>Dream Jobs</span>
                 </h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repudiandae non aliquid voluptates blanditiis ducimus!</p>
                 <div className='flex justify-center'>
-
-                    <div className=' w-[80%] flex justify-center'>
-                        <div className=' w-[40%] flex items-center shadow-lg border border-gray-300 pl-7 rounded-l-full '>
+                    <div className=' md:w-[80%] flex justify-center'>
+                        <div className=' md:w-[40%] flex items-center shadow-lg border border-gray-300 pl-7 md:rounded-l-full rounded-l-md '>
                             <input
                                 type="text"
                                 placeholder='Find your dream jobs'
@@ -34,7 +33,7 @@ const HeroSection = () => {
                                 className='outline-none border-none h-5 w-full'
                             />
                         </div>
-                        <Button className='rounded-r-full w-12 bg-[#6A38C2]' onClick={searchJobHandler}>
+                        <Button className='rounded-l-none rounded-r-md md:rounded-r-full w-12 bg-[#6A38C2]' onClick={searchJobHandler}>
                             <Search />
                         </Button>
                     </div>

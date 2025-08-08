@@ -37,8 +37,8 @@ export const register = async (req, res) => {
             phoneNumber,
             password: hashedPassword,
             role,
-            profile :{
-                profilePhoto : cloudResponse.secure_url,
+            profile: {
+                profilePhoto: cloudResponse.secure_url,
             }
         })
         return res.status(201).json({
@@ -119,10 +119,19 @@ export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file
-        const fileURI = getDataUrl(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileURI.content,{
-            resource_type: "raw", //this is important for non-image files like PDFs
-        });
+        if (file) {
+            const fileURI = getDataUrl(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileURI.content, {
+                resource_type: "raw", //this is important for non-image files like PDFs
+            });
+            if (cloudResponse) {
+                // save the cloudinary url
+                user.profile.resume = cloudResponse.secure_url;
+                // save the original resume name
+                user.profile.resumeOriginalName = file.originalname;
+            }
+        }
+
 
         const userId = req.id; //middleware authentication
         console.log(userId);
@@ -154,12 +163,7 @@ export const updateProfile = async (req, res) => {
             const skillsArray = skills.split(",");
             user.profile.skills = skillsArray
         }
-        if (cloudResponse) {
-            // save the cloudinary url
-            user.profile.resume = cloudResponse.secure_url;
-            // save the original resume name
-            user.profile.resumeOriginalName = file.originalname;
-        }
+
 
         await user.save();   //save in database
 
