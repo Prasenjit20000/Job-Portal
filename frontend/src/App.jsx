@@ -48,7 +48,8 @@ const appRouter = createBrowserRouter([
   // admit routes
   {
     path : '/admin/companies',
-    element : <ProtectedRoute><Companies/></ProtectedRoute>
+    // element : <ProtectedRoute><Companies/></ProtectedRoute>
+    element : <Companies/>
   },
   {
     path : '/admin/companies/create',

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from './ui/button'
 import { Bookmark } from 'lucide-react'
 import { Avatar, AvatarImage } from './ui/avatar'
@@ -14,7 +13,7 @@ const Job = ({job}) => {
     return Math.floor(timeDifference/(1000*24*60*60));
   }
   return (
-    <div className='p-5 border border-gray-100 rounded-md shadow-xl'>
+    <div className='md:p-5 p-4 border border-gray-100 rounded-md shadow-xl'>
       <div className='flex justify-between items-center'>
         <p className='text-sm text-gray-500'>{calculateDays(job?.createdAt)===0?'Today':`${calculateDays(job?.createdAt)} days ago`}</p>
         <Button variant='outline' className='rounded-full' size='icon'><Bookmark /></Button>
@@ -40,13 +39,13 @@ const Job = ({job}) => {
         <p className='text-sm text-gray-600'>{job?.description}</p>
       </div>
       <div>
-        <Badge variant='ghost' className='text-blue-700 font-bold'>{job?.position}</Badge>
-        <Badge variant='ghost' className='text-[#F83002] font-bold'>{job?.jobType}</Badge>
-        <Badge variant='ghost' className='text-[#7209b7] font-bold'>{job?.salary}</Badge>
+        <Badge variant='ghost' className='text-blue-700 font-bold md:mr-2'>{job?.position} Positions</Badge>
+        <Badge variant='ghost' className='text-[#F83002] font-bold md:mr-2'>{job?.jobType}</Badge>
+        <Badge variant='ghost' className='text-[#7209b7] font-bold md:mr-2'>{job?.salary}LPA</Badge>
       </div>
-      <div className='flex items-center gap-4 mt-4'>
-        <Button variant='outline' onClick={()=>navigate(`/description/${job?._id}`)}>Details</Button>
-        <Button className='bg-[#7209b7]'>Save For Later</Button>
+      <div className='flex items-center gap-1 md:gap-4 mt-4'>
+        <Button variant='outline' className='md:w-20 w-14' onClick={()=>navigate(`/description/${job?._id}`)}><p className='text-xs md:text-base'>Details</p></Button>
+        <Button className='bg-[#7209b7] md:w-30 w-22'><p className='text-xs md:text-base'>Save For Later</p></Button>
       </div>
     </div>
   )

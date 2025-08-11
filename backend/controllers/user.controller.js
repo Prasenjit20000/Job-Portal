@@ -119,18 +119,7 @@ export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file
-        if (file) {
-            const fileURI = getDataUrl(file);
-            const cloudResponse = await cloudinary.uploader.upload(fileURI.content, {
-                resource_type: "raw", //this is important for non-image files like PDFs
-            });
-            if (cloudResponse) {
-                // save the cloudinary url
-                user.profile.resume = cloudResponse.secure_url;
-                // save the original resume name
-                user.profile.resumeOriginalName = file.originalname;
-            }
-        }
+
 
 
         const userId = req.id; //middleware authentication
@@ -162,6 +151,18 @@ export const updateProfile = async (req, res) => {
         if (skills) {
             const skillsArray = skills.split(",");
             user.profile.skills = skillsArray
+        }
+        if (file) {
+            const fileURI = getDataUrl(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileURI.content, {
+                resource_type: "raw", //this is important for non-image files like PDFs
+            });
+            if (cloudResponse) {
+                // save the cloudinary url
+                user.profile.resume = cloudResponse.secure_url;
+                // save the original resume name
+                user.profile.resumeOriginalName = file.originalname;
+            }
         }
 
 

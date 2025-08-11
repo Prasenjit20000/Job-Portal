@@ -20,7 +20,7 @@ import { setLoading, setUser } from '../redux/authSlice'
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
     // const [loading, setLoading] = useState(false);
-    const {loading} = useSelector(store=>store.auth)
+    const { loading } = useSelector(store => store.auth)
     const dispatch = useDispatch();
     const closeHandler = (e) => {
         e.preventDefault();
@@ -72,45 +72,114 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             console.log(error);
             toast.error(error.response.data.message);
         }
-        finally{
+        finally {
             dispatch(setLoading(false));
             setOpen(false);
-            
+
         }
     }
 
     return (
 
         <div>
-            <Dialog open={open} >
+            <Dialog open={open}>
                 <DialogContent onInteractOutside={() => setOpen(false)}>
                     <DialogHeader >
                         <div className='flex justify-between'>
-                            <DialogTitle className=' text-2xl'>Update Profile</DialogTitle>
+                            <DialogTitle className='text-lg md:text-2xl'>Update Profile</DialogTitle>
                             <X className='cursor-pointer text-gray-400 hover:text-black' onClick={closeHandler} />
                         </div>
 
                     </DialogHeader>
                     <form onSubmit={submitHandler}>
-                        <div className='grid pb-4'>
+                        <div className='md:hidden py-2'>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='name' className=' text-md pr-4 '>Name</Label>
+                                <Input
+                                    id="name"
+                                    name="fullname"
+                                    type="text"
+                                    value={input.fullname}
+                                    onChange={changeEventHandler}
+                                    className='border border-gray-500  '
+                                />
+                            </div>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='email' className='pr-5 text-md  '>Email</Label>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    value={input.email}
+                                    onChange={changeEventHandler}
+                                    className='col-span-3 border border-gray-500'
+                                />
+                            </div>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='number' className='pr-1 text-md '>Phone No.</Label>
+                                <Input
+                                    id="number"
+                                    name="phoneNumber"
+                                    type="text"
+                                    value={input.phoneNumber}
+                                    onChange={changeEventHandler}
+                                    className='col-span-3 border border-gray-500'
+                                />
+                            </div>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='bio' className=' text-md pr-9'>Bio</Label>
+                                <Input
+                                    id="bio"
+                                    name="bio"
+                                    type="text"
+                                    value={input.bio}
+                                    onChange={changeEventHandler}
+                                    className=' border border-gray-500'
+                                />
+                            </div>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='skills' className='text-md pr-6'>Skills</Label>
+                                <Input
+                                    id="skills"
+                                    name="skills"
+                                    type="text"
+                                    value={input.skills}
+                                    onChange={changeEventHandler}
+                                    className='border border-gray-500'
+                                />
+                            </div>
+                            <div className='flex items-center justify-between gap-2 pb-3'>
+                                <Label htmlFor='file' className='text-md pr-1 '>Resume</Label>
+                                <Input
+
+                                    id="file"
+                                    name="file"
+                                    type="file"
+                                    accept="application/pdf"
+                                    onChange={fileChangeHandler}
+                                    className=' border border-gray-500'
+                                />
+                            </div>
+                        </div>
+
+
+                        <div className='hidden md:grid pb-4'>
                             {/* in html forms for every inputs and corresponding labels have same id */}
                             <div className='grid gap-4 py-4'>
                                 <div className='grid grid-cols-4 items-center gap-4'>
                                     <Label htmlFor='name' className='px-12 text-md '>Name</Label>
                                     <Input
-
                                         id="name"
                                         name="fullname"
                                         type="text"
                                         value={input.fullname}
                                         onChange={changeEventHandler}
-                                        className='col-span-3 border border-gray-500'
+                                        className='col-span-3  border border-gray-500  '
                                     />
                                 </div>
                                 <div className='grid grid-cols-4 items-center gap-4'>
                                     <Label htmlFor='email' className='px-12 text-md '>Email</Label>
                                     <Input
-
                                         id="email"
                                         name="email"
                                         type="email"
@@ -122,7 +191,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <div className='grid grid-cols-4 items-center gap-4'>
                                     <Label htmlFor='number' className='px-12 text-md '>Number</Label>
                                     <Input
-
                                         id="number"
                                         name="phoneNumber"
                                         type="text"
@@ -156,7 +224,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     />
                                 </div>
                                 <div className='grid grid-cols-4 items-center gap-4'>
-                                    <Label htmlFor='email' className='px-12 text-md '>Resume</Label>
+                                    <Label htmlFor='file' className='px-12 text-md '>Resume</Label>
                                     <Input
 
                                         id="file"
@@ -170,12 +238,23 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3'>Close</Button>
-                            {
-                                loading ?
-                                    <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
-                                    <Button type='submit' className='w-1/3'>Update</Button>
-                            }
+                            <div className='md:hidden flex justify-end gap-4 '>
+                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3'>Close</Button>
+                                {
+                                    loading ?
+                                        <Button className='w-1/3'><Loader2 className='animate-spin' />Please wait</Button> :
+                                        <Button type='submit' className='w-1/3'>Update</Button>
+                                }
+                            </div>
+                            <div className='hidden sm:flex w-[75%] gap-2'>
+                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/2'>Close</Button>
+                                {
+                                    loading ?
+                                        <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
+                                        <Button type='submit' className='w-1/2'>Update</Button>
+                                }
+                            </div>
+
                         </DialogFooter>
                     </form>
                 </DialogContent>

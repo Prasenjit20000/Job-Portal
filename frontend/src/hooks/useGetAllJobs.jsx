@@ -12,10 +12,14 @@ const useGetAllJobs = () => {
     dispatch(setAllJobs([]));
     const fetchAllJobs = async()=>{
         try {
-            const res = await axios.get(`${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,{withCredentials:true});
+            let res;
+            if(searchedQuery.trim()){
+                 res = await axios.get(`${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,{withCredentials:true});
+            }
+            else{
+                 res = await axios.get(`${JOB_API_END_POINT}/get`,{withCredentials:true});
+            }
             if(res.data.success){
-                console.log('inside useGetAllJobs')
-                console.log(res.data.jobs)
                 dispatch(setAllJobs(res.data.jobs));
                 toast.success(res.data.message);
             }
@@ -24,7 +28,7 @@ const useGetAllJobs = () => {
         }
     }
     fetchAllJobs();
-  },[])
+  },[searchedQuery])
 }
 
 export default useGetAllJobs

@@ -6,17 +6,18 @@ import useGetAllJobs from '../hooks/useGetAllJobs'
 import { useEffect } from 'react'
 import { setSearchedQuery } from '../redux/jobSlice'
 
-
-
 const Browse = () => {
+    // const {searchedQuery} = useSelector(store=>store.job);
+    // console.log(searchedQuery);
     useGetAllJobs();
     const dispatch = useDispatch();
-    const {allJobs} = useSelector(store=>store.job);
-    useEffect(()=>{
-        return ()=>{
+    const { allJobs } = useSelector(store => store.job);
+    
+    useEffect(() => {
+        return () => {
             dispatch(setSearchedQuery(""));
         }
-    },[]);
+    }, []);
     return (
         <div>
             <Navbar />
@@ -26,7 +27,7 @@ const Browse = () => {
                     {
                         allJobs.map((job) => {
                             return (
-                                <Job job={job} key={job._id}/>
+                                <Job job={job} key={job._id} />
                             )
                         })
                     }
