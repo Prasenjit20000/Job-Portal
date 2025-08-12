@@ -6,29 +6,28 @@ import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import {  setSearchedQuery } from '../redux/jobSlice';
+import useGetAllJobs from '../hooks/useGetAllJobs';
 
 
 const Jobs = () => {
-    const { allJobs, searchedQuery } = useSelector(store => store.job);
-    const [filterJobs, setFilterJobs] = useState(allJobs);
+    useGetAllJobs();
     const dispatch = useDispatch();
-    console.log(searchedQuery )
+    const { allJobs, localSearchedQuery } = useSelector(store => store.job);
+    const [filterJobs, setFilterJobs] = useState(allJobs);
     useEffect(() => {
-        if (searchedQuery) {
-            console.log('iff')
+        if (localSearchedQuery) {
             const filteredJobs = allJobs.filter((job) => {
-                return job.title.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-                    job.description.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-                    job.location.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-                    job.jobType.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-                    job?.company?.name?.toLowerCase().includes(searchedQuery.toLowerCase())
+                return job.title.toLowerCase().includes(localSearchedQuery.toLowerCase()) ||
+                    job.description.toLowerCase().includes(localSearchedQuery.toLowerCase()) ||
+                    job.location.toLowerCase().includes(localSearchedQuery.toLowerCase()) ||
+                    job.jobType.toLowerCase().includes(localSearchedQuery.toLowerCase()) ||
+                    job?.company?.name?.toLowerCase().includes(localSearchedQuery.toLowerCase())
             })
             setFilterJobs(filteredJobs);
         } else {
-            console.log('else')
             setFilterJobs(allJobs);
         }
-    }, [allJobs, searchedQuery]);
+    }, [localSearchedQuery,allJobs]);
     // when exit from this page it will set the search query with empty string
     useEffect(() => {
         return () => {

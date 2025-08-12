@@ -2,14 +2,12 @@ import React, { useState } from 'react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Label } from './ui/label'
 import { Input } from './ui/input'
-import { DialogClose, DialogFooter } from './ui/dialog'
+import {  DialogFooter } from './ui/dialog'
 import { Loader2, X } from 'lucide-react'
 import { Button } from './ui/button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -238,7 +236,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                             </div>
                         </div>
                         <DialogFooter>
-                            <div className='md:hidden flex justify-end gap-4 '>
+                            <div className='md:hidden flex justify-end gap-2
+                             '>
                                 <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3'>Close</Button>
                                 {
                                     loading ?

@@ -156,7 +156,7 @@ const PostJob = () => {
                         </div>
                         {
                             <Select disabled={allCompanies.length === 0} onValueChange={selectChangeHandler}>
-                                <SelectTrigger className='w-[100%]'>
+                                <SelectTrigger className='w-[100%] '>
                                     <SelectValue placeholder='Select a Company' />
                                 </SelectTrigger>
                                 <SelectContent>

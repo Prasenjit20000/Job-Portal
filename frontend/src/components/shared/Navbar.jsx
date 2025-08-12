@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Avatar, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { User, LogOut, User2, Menu, X } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
@@ -25,7 +25,6 @@ const Navbar = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
         }
     }
     return (

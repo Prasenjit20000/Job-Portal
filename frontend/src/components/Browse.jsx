@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { setSearchedQuery } from '../redux/jobSlice'
 
 const Browse = () => {
-    // const {searchedQuery} = useSelector(store=>store.job);
-    // console.log(searchedQuery);
     useGetAllJobs();
     const dispatch = useDispatch();
     const { allJobs } = useSelector(store => store.job);
@@ -21,9 +19,9 @@ const Browse = () => {
     return (
         <div>
             <Navbar />
-            <div className='mx-20'>
+            <div className='md:mx-20 mx-8'>
                 <h1 className='font-bold text-xl my-10'>Search Results ({allJobs.length}) </h1>
-                <div className=' grid grid-cols-3 gap-4'>
+                <div className=' grid md:grid-cols-3 grid-cols-1 md:gap-4'>
                     {
                         allJobs.map((job) => {
                             return (

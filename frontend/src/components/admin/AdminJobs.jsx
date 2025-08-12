@@ -7,6 +7,7 @@ import AdminJobsTable from './AdminJobsTable'
 import useGetAllAdminJobs from '../../hooks/useGetAllAdminJobs'
 import { useDispatch } from 'react-redux'
 import { setSearchJobByText } from '../../redux/jobSlice'
+import Footer from '../Footer'
 
 const AdminJobs = () => {
   const navigate = useNavigate();
@@ -19,19 +20,19 @@ const AdminJobs = () => {
   return (
     <div>
       <Navbar />
-      <div className='max-w-6xl mx-auto my-10' >
-        <div className='flex justify-between items-center mb-10'>
+      <div className='max-w-6xl mx-auto mb-10' >
+        <div className='flex justify-between items-center mb-10 m-5 gap-4'>
           <Input
-            className='w-fit'
+            className='md:w-[80%] w-70'
             placeholder='Filter by name'
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <Button onClick={() => navigate('/admin/job/create')}>
+            onChange={(e) => setInput(e.target.value)} />
+          <Button className='md:w-[15%] w-24 md:text-base text-xs' onClick={() => navigate('/admin/job/create')}>
             New Job
           </Button>
         </div>
         <AdminJobsTable />
       </div>
+      <Footer />
     </div>
   )
 }

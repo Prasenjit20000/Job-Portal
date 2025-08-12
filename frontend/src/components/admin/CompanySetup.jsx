@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
 import Navbar from '../shared/Navbar'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Input } from '../ui/input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { COMPANY_API_END_POINT } from '../utils/constants'
 import { toast } from 'sonner'
@@ -66,29 +65,31 @@ const CompanySetup = () => {
         }
     }
     useEffect(() => {
-            setInput({
-                name: singleCompany.name || "",
-                description: singleCompany.description || "",
-                website: singleCompany.website || "",
-                location: singleCompany.location || "",
-                file: singleCompany.file || null
-            })
+        setInput({
+            name: singleCompany.name || "",
+            description: singleCompany.description || "",
+            website: singleCompany.website || "",
+            location: singleCompany.location || "",
+            file: singleCompany.file || null
+        })
     }, [singleCompany]);
     return (
         <div>
             <Navbar />
-            <div className='max-w-xl mx-auto my-10'>
+            <div className='max-w-xl mx-4 md:mx-auto my-10'>
                 <form onSubmit={submitHandler}>
-                    <div className='flex items-center gap-5 p-8'>
+                    <div className='flex items-center'>
                         <Button onClick={() => navigate('/admin/companies')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold'>
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
-                        <h1 className='font-bold text-xl'>Company Setup</h1>
+                    </div>
+                    <div className='flex justify-center items-center mb-5'>
+                        <h1 className='font-bold text-2xl '>Company Setup</h1>
                     </div>
                     <div className='grid grid-cols-2 gap-4'>
                         <div>
-                            <Label>Company Name</Label>
+                            <Label className='mb-1.5'>Company Name</Label>
                             <Input
                                 type='text'
                                 name='name'
@@ -97,7 +98,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Description</Label>
+                            <Label className='mb-1.5'>Description</Label>
                             <Input
                                 type='text'
                                 name='description'
@@ -106,7 +107,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Website</Label>
+                            <Label className='mb-1.5'>Website</Label>
                             <Input
                                 type='text'
                                 name='website'
@@ -115,7 +116,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Location</Label>
+                            <Label className='mb-1.5'>Location</Label>
                             <Input
                                 type='text'
                                 name='location'
@@ -124,10 +125,11 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Logo</Label>
+                            <Label className='mb-1.5'>Logo</Label>
                             <Input
                                 type='file'
                                 accept='image/*'
+                                className='md:w-70 w-55'
                                 onChange={changeFileHandler}
                             />
                         </div>

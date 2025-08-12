@@ -27,7 +27,7 @@ const jobSchema = new mongoose.Schema({
         required:true
     },
     experienceLevel:{
-        type : Number,
+        type : String,
         required : true
     },
     // opennings

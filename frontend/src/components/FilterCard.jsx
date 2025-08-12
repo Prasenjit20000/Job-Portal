@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useDispatch } from 'react-redux'
-import { setSearchedQuery } from '../redux/jobSlice'
+import { setLocalSearchedQuery, setSearchedQuery } from '../redux/jobSlice'
 import { Button } from './ui/button'
 
 const filterData = [
@@ -49,8 +49,13 @@ const FilterCard = () => {
   }
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setSearchedQuery(selectedValue));
+    dispatch(setLocalSearchedQuery(selectedValue));
   }, [selectedValue]);
+
+  const resetFilters = () =>{
+    setSelectedValue('');
+    dispatch(setLocalSearchedQuery(''));
+  }
   return (
     <div className='w-full p-3 rounded-md'>
       <h1 className='font-bold text-lg'>Filter Jobs</h1>
@@ -75,8 +80,8 @@ const FilterCard = () => {
           )
         }
       </RadioGroup >
-      <div className='flex justify-center'>
-        <Button variant='outline' onClick={()=>dispatch(setSearchedQuery(''))}>Reset Filter</Button>
+      <div className='flex justify-center my-4'>
+        <Button variant='outline' className=' border border-gray-400 shadow-gray-500' onClick={resetFilters}>Reset Filter</Button>
       </div>
     </div >
   )

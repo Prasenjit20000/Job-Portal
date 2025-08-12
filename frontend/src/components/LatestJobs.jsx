@@ -1,4 +1,3 @@
-import React from 'react'
 import LatestJobCard from './LatestJobCard'
 import { useSelector } from 'react-redux'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     Carousel,
     CarouselContent,
@@ -7,10 +6,9 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Button } from './ui/button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {setSearchedQuery} from '../redux/jobSlice'
-import useGetAllJobs from '../hooks/useGetAllJobs'
 
 const category = [
     "Frontend Developer",
@@ -23,10 +21,8 @@ const category = [
 const CategoryCarousel = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {searchedQuery} = useSelector(store=>store.job);
     const searchJobHandler = (query) =>{
         dispatch(setSearchedQuery(query));
-        console.log(searchedQuery);
         navigate('/browse');
     }
     return (
