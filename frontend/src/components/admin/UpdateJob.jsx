@@ -74,9 +74,9 @@ const UpdateJob = () => {
     <div>
       <Navbar />
       <div className='max-w-xl md:mx-auto mx-5 mb-10 mt-5'>
-        <form onSubmit={submitHandler}>
+        <form >
           <div className='flex items-center'>
-            <Button onClick={() => navigate('/admin/jobs')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold'>
+            <Button onClick={() => navigate('/admin/jobs')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold cursor-pointer'>
               <ArrowLeft />
               <span>Back</span>
             </Button>
@@ -160,7 +160,7 @@ const UpdateJob = () => {
           </div>
           {
             loading ? <Button type='submit' className='w-full mt-8' ><Loader2 className='animate-spin' /></Button>
-              : <Button type='submit' className='w-full mt-8' >Update</Button>
+              : <Button onClick={submitHandler} className='w-full mt-8 cursor-pointer' >Update</Button>
           }
         </form>
       </div>

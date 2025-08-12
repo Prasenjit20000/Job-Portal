@@ -1,4 +1,3 @@
-import React from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -12,7 +11,7 @@ import { toast } from "sonner"
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '../../redux/authSlice'
 import { Loader2 } from 'lucide-react'
-
+import Footer from '../Footer'
 
 
 const Signup = () => {
@@ -149,7 +148,7 @@ const Signup = () => {
                 <Label htmlFor="option-two">Recruiter</Label>
               </div>
             </RadioGroup>
-            <div className='flex justify-center items-center gap-2'>
+            <div className='flex justify-center items-center gap-2 '>
               <Label className='font-semibold'>Profile</Label>
               <Input
                 accept="image/*"
@@ -164,7 +163,7 @@ const Signup = () => {
             loading ?
               <Button className='w-full mt-4 mb-1'><Loader2 className='animate-spin'/></Button> :
               <div className='flex justify-center'>
-                <Button type='submit' className='w-full mt-4 mb-1'>Signup</Button>
+                <Button type='submit' className='w-full mt-4 mb-1 cursor-pointer'>Signup</Button>
               </div>
           }
           <div className='flex justify-center text-sm'>
@@ -172,6 +171,7 @@ const Signup = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   )
 }

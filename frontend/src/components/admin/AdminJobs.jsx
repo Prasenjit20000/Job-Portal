@@ -26,7 +26,7 @@ const AdminJobs = () => {
             className='md:w-[80%] w-70'
             placeholder='Filter by name'
             onChange={(e) => setInput(e.target.value)} />
-          <Button className='md:w-[15%] w-24 md:text-base text-xs' onClick={() => navigate('/admin/job/create')}>
+          <Button className='md:w-[15%] w-24 md:text-base text-xs cursor-pointer' onClick={() => navigate('/admin/job/create')}>
             New Job
           </Button>
         </div>

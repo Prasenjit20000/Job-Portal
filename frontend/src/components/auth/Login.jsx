@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup } from "@/components/ui/radio-group"
 import { Link, useNavigate } from "react-router-dom"
 import { USER_API_END_POINT } from '../utils/constants'
 import axios from "axios"
@@ -11,6 +11,7 @@ import { toast } from "sonner"
 import { useDispatch, useSelector } from "react-redux"
 import { setLoading, setUser } from '../../redux/authSlice'
 import { Loader2 } from 'lucide-react'
+import Footer from '../Footer'
 
 
 const Login = () => {
@@ -119,7 +120,7 @@ const Login = () => {
             loading ? 
             <Button className='w-full mt-4 mb-1'><Loader2 className='animate-spin'/>Please wait</Button> :
             (<div className='flex justify-center'>
-            <Button type='submit' className='w-full mt-4 mb-1'>Login</Button>
+            <Button type='submit' className='w-full mt-4 mb-1 cursor-pointer'>Login</Button>
           </div>)
           }
           <div className='flex justify-center text-sm'>
@@ -127,6 +128,7 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   )
 }

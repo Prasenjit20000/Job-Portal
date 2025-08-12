@@ -33,7 +33,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         skills: user?.profile?.skills,
         file: user?.profile?.resume
     })
-    console.log(input.file)
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }
@@ -155,7 +154,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     type="file"
                                     accept="application/pdf"
                                     onChange={fileChangeHandler}
-                                    className=' border border-gray-500'
+                                    className=' border border-gray-500 cursor-pointer'
                                 />
                             </div>
                         </div>
@@ -230,7 +229,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                         type="file"
                                         accept="application/pdf"
                                         onChange={fileChangeHandler}
-                                        className='col-span-3 border border-gray-500'
+                                        className='col-span-3 border border-gray-500 cursor-pointer'
                                     />
                                 </div>
                             </div>
@@ -238,19 +237,19 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                         <DialogFooter>
                             <div className='md:hidden flex justify-end gap-2
                              '>
-                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3'>Close</Button>
+                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3 cursor-pointer'>Close</Button>
                                 {
                                     loading ?
                                         <Button className='w-1/3'><Loader2 className='animate-spin' />Please wait</Button> :
-                                        <Button type='submit' className='w-1/3'>Update</Button>
+                                        <Button type='submit' className='w-1/3 cursor-pointer'>Update</Button>
                                 }
                             </div>
                             <div className='hidden sm:flex w-[75%] gap-2'>
-                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/2'>Close</Button>
+                                <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/2 cursor-pointer'>Close</Button>
                                 {
                                     loading ?
                                         <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
-                                        <Button type='submit' className='w-1/2'>Update</Button>
+                                        <Button type='submit' className='w-1/2 cursor-pointer'>Update</Button>
                                 }
                             </div>
 

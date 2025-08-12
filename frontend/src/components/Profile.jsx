@@ -1,24 +1,60 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Navbar from './shared/Navbar'
-import { AvatarImage, Avatar } from './ui/avatar'
+import { AvatarImage, Avatar, AvatarFallback } from './ui/avatar'
 import { Button } from './ui/button'
-import { Contact, Mail, Pen, X } from 'lucide-react'
+import { Contact, Loader2, Mail, Pen, X } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Label } from './ui/label'
 import AppliedJobTable from './AppliedJobTable'
 import UpdateProfileDialog from './UpdateProfileDialog'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import useGetAppliedJob from '../hooks/useGetAppliedJob'
 import { DialogClose } from './ui/dialog'
 import Footer from './Footer'
+import { USER_API_END_POINT } from './utils/constants'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { setLoading, setUser } from '../redux/authSlice'
 
 const Profile = () => {
     useGetAppliedJob();
+    const dispatch = useDispatch();
     const isResume = true;
     const [open, setOpen] = useState();
     // retrive logged in user data
-    const { user } = useSelector(store => store.auth);
+    const { user, loading } = useSelector(store => store.auth);
+    const fileInputRef = useRef(null);
+
+    const handleButtonClick = () => {
+        fileInputRef.current.click(); // Open file picker
+    };
+
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        try {
+            dispatch(setLoading(true));
+            const formData = new FormData();
+            formData.append('file', file);
+            const res = await axios.post(`${USER_API_END_POINT}/profile/photo/update`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true,
+            });
+
+            if (res.data.success) {
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        }
+        finally {
+            dispatch(setLoading(false));
+        }
+    }
     return (
         <div>
             <Navbar />
@@ -29,7 +65,9 @@ const Profile = () => {
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Avatar className='h-12 w-12 cursor-pointer'>
-                                        <AvatarImage src={`${user?.profile?.profilePhoto}`} alt='profile' />
+                                        {
+                                            user.profile.profilePhoto ? <AvatarImage src={`${user?.profile?.profilePhoto}`} /> : <AvatarImage src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' />
+                                        }
                                     </Avatar>
                                 </DialogTrigger>
                                 <DialogContent className="w-full h-auto">
@@ -40,10 +78,31 @@ const Profile = () => {
                                         </DialogClose>
 
                                         {/* Image */}
-                                        <img
-                                            src={user?.profile?.profilePhoto}
-                                            alt="Full view"
-                                            className="w-auto h-auto rounded"
+                                        {
+                                            user.profile.profilePhoto ?
+                                                <img
+                                                    src={user?.profile?.profilePhoto}
+                                                    className="w-auto h-auto rounded"
+                                                /> :
+                                                <img
+                                                    src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'
+                                                    className="w-auto h-auto rounded"
+                                                />
+                                        }
+                                    </div>
+                                    <div>
+                                        {
+                                            loading ?
+                                                <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
+                                                <Button onClick={handleButtonClick}>Update Profile Image</Button>
+                                        }
+                                        {/* Hidden file input */}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            ref={fileInputRef}
+                                            onChange={handleFileChange}
+                                            style={{ display: "none" }}
                                         />
                                     </div>
                                 </DialogContent>
@@ -93,25 +152,47 @@ const Profile = () => {
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Avatar className='h-12 w-12 cursor-pointer'>
-                                        <AvatarImage src={`${user?.profile?.profilePhoto}`} alt='profile' />
+                                        {
+                                            user.profile.profilePhoto ? <AvatarImage src={`${user?.profile?.profilePhoto}`} /> : <AvatarImage src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png' />
+                                        }
                                     </Avatar>
                                 </DialogTrigger>
                                 <DialogContent className="w-auto">
                                     <div className="relative">
                                         {/* Close button in top-right */}
-                                        <DialogClose className="absolute top-2 right-2 bg-white/70 rounded-full p-1 hover:bg-white">
+                                        <DialogClose className="absolute top-2 right-2 bg-white/70 rounded-full p-1 hover:bg-white cursor-pointer">
                                             <X className="w-5 h-5" />
                                         </DialogClose>
 
                                         {/* Image */}
-                                        <img
-                                            src={user?.profile?.profilePhoto}
-                                            alt="Full view"
-                                            className="w-auto h-90 rounded"
+                                        {
+                                            user.profile.profilePhoto ?
+                                                <img
+                                                    src={user?.profile?.profilePhoto}
+                                                    className="w-auto h-90 rounded"
+                                                /> :
+                                                <img
+                                                    src='https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'
+                                                    className="w-auto h-90 rounded"
+                                                />
+                                        }
+                                    </div>
+                                    <div>
+                                        {
+                                            loading ?
+                                                <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
+                                                <Button onClick={handleButtonClick}>Update Profile Image</Button>
+                                        }
+                                        {/* Hidden file input */}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            ref={fileInputRef}
+                                            onChange={handleFileChange}
+                                            style={{ display: "none" }}
                                         />
                                     </div>
                                 </DialogContent>
-
                             </Dialog>
                         </div>
                         <div>
@@ -119,7 +200,7 @@ const Profile = () => {
                             <p>{user?.profile?.bio}</p>
                         </div>
                     </div>
-                    <Button onClick={() => setOpen(true)} className='text-right border border-gray-600' variant='outline'><Pen /></Button>
+                    <Button onClick={() => setOpen(true)} className='text-right border border-gray-600 cursor-pointer' variant='outline'><Pen /></Button>
                 </div>
                 <div className='my-5'>
                     <div className='flex items-center gap-3 my-2'>
@@ -156,7 +237,7 @@ const Profile = () => {
             <div>
                 <UpdateProfileDialog open={open} setOpen={setOpen} />
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

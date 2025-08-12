@@ -40,13 +40,13 @@ const Jobs = () => {
             {/* filter page */}
             <div className='max-w-7xl mx-4 md:mx-20 mt-5'>
                 <div className=' flex gap-5'>
-                    <div className='md:w-[20%] w-[38%] '>
+                    <div className='md:w-[20%] w-[30%] '>
                         <FilterCard />
                     </div>
                     {/* jobs according to this filter */}
                     {
                         filterJobs.length <= 0 ? <span>Job not found</span> :
-                            <div className='flex-1 h-[88vh] overflow-y-auto pb-5 relative group custom-scroll'>
+                            <div className='flex-1  h-[170vh] overflow-y-auto pb-5 relative group custom-scroll'>
                                 <div className='grid md:grid-cols-3 grid-cols-1  gap-4'>
                                     {
                                         filterJobs.map((job) =>

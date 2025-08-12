@@ -127,6 +127,7 @@ export  const updateJob = async(req,res)=>{
     try {
         const {title, description, requirements, salary, location, jobType, experienceLevel, position} = req.body;
         const jobId = req.params.id;
+        
         const updatedData = {title, description,requirements,salary,location,jobType,experienceLevel,position}
         // this will update and save company details
         const job = await Job.findByIdAndUpdate(jobId,updatedData,{new:true});

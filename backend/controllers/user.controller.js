@@ -115,17 +115,51 @@ export const logout = async (req, res) => {
     }
 }
 
+export const updateProfilePhoto = async (req,res) =>{
+    try {
+        const file = req.file
+        const userId = req.id; //middleware authentication
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({
+                message: "User not found",
+                success: true
+            });
+        }
+        if (file) {
+            const fileURI = getDataUrl(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileURI.content);
+            if (cloudResponse) {
+                // save the cloudinary url
+                user.profile.profilePhoto = cloudResponse.secure_url;
+            }
+        }
+        await user.save();   //save in database
+
+        user = {
+            _id: user._id,
+            fullname: user.fullname,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            role: user.role,
+            profile: user.profile
+        }
+        return res.status(200).json({
+            message: 'Profile photo updated successfully.',
+            user,
+            success: true
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file
-
-
-
         const userId = req.id; //middleware authentication
-        console.log(userId);
         let user = await User.findById(userId);
-
         if (!user) {
             return res.status(400).json({
                 message: "User not found",

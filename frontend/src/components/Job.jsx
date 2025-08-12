@@ -25,8 +25,6 @@ const Job = ({job}) => {
             {
               job?.company?.logo ? <AvatarImage src={`${job?.company?.logo}`} /> : <AvatarImage src="https://cdn-icons-png.flaticon.com/128/2611/2611445.png" />
             }
-            
-
           </Avatar>
         </Button>
         <div>
@@ -43,9 +41,9 @@ const Job = ({job}) => {
         <Badge variant='ghost' className='text-[#F83002] font-bold md:mr-2'>{job?.jobType}</Badge>
         <Badge variant='ghost' className='text-[#7209b7] font-bold md:mr-2'>{job?.salary}LPA</Badge>
       </div>
-      <div className='flex items-center gap-1 md:gap-4 mt-4'>
-        <Button variant='outline' className='shadow-gray-400 md:w-20 w-14' onClick={()=>navigate(`/description/${job?._id}`)}><p className='text-xs md:text-base'>Details</p></Button>
-        <Button className='bg-[#7209b7] md:w-30 w-22'><p className='text-xs md:text-base'>Save For Later</p></Button>
+      <div className='flex items-center gap-2 md:gap-4 mt-4'>
+        <Button variant='outline' className='shadow-gray-400 md:w-20 w-15 cursor-pointer' onClick={()=>navigate(`/description/${job?._id}`)}><p className='text-xs md:text-base'>Details</p></Button>
+        <Button className='bg-[#7209b7] md:w-30 w-26 cursor-pointer'><p className='text-xs md:text-base'>Save For Later</p></Button>
       </div>
     </div>
   )

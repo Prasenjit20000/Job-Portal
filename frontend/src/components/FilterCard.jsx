@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useDispatch } from 'react-redux'
-import { setLocalSearchedQuery, setSearchedQuery } from '../redux/jobSlice'
+import { setLocalSearchedQuery } from '../redux/jobSlice'
 import { Button } from './ui/button'
 
 const filterData = [
+  {
+    filterType: 'Job Type',
+    array: ['Full Time', 'Part Time', 'Internship']
+  },
   {
     filterType: 'Location',
     array: ['Delhi', 'Mumbai', 'Kolkata', 'Bangalore', 'Chennai']
@@ -69,8 +73,8 @@ const FilterCard = () => {
                 data.array.map((item, idx) => {
                   const itemId = `r${index}-${idx}`;
                   return (
-                    <div className="flex items-center space-x-2 my-2">
-                      <RadioGroupItem value={item} key={itemId} />
+                    <div className="flex items-center space-x-2 my-2 ">
+                      <RadioGroupItem value={item} key={itemId} className='cursor-pointer' />
                       <Label htmlFor={itemId}>{item}</Label>
                     </div>
                   )
@@ -81,7 +85,7 @@ const FilterCard = () => {
         }
       </RadioGroup >
       <div className='flex justify-center my-4'>
-        <Button variant='outline' className=' border border-gray-400 shadow-gray-500' onClick={resetFilters}>Reset Filter</Button>
+        <Button variant='outline' className='cursor-pointer border border-gray-400 shadow-gray-500' onClick={resetFilters}>Reset Filter</Button>
       </div>
     </div >
   )
