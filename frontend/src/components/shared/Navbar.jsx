@@ -64,19 +64,12 @@ const Navbar = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-start mt-2">
-                                    {
-                                        user && user.role === 'recruiter' ?
-                                            (
-                                                <></>
-                                            ) : (
-                                                <>
-                                                    <div className='flex justify-center items-center text-gray-600'>
-                                                        <User size={22} />
-                                                        <Button variant="link" className="text-gray-600 "><Link to='/profile'>View Profile</Link></Button>
-                                                    </div>
-                                                </>
-                                            )
-                                    }
+
+                                    <div className='flex justify-center items-center text-gray-600'>
+                                        <User size={22} />
+                                        <Button variant="link" className="text-gray-600 "><Link to='/profile'>View Profile</Link></Button>
+                                    </div>
+
                                     <div className='flex justify-center items-center text-gray-600'>
                                         <LogOut size={22} />
                                         <Button onClick={logoutHandler} variant="link" className="text-gray-600 cursor-pointer">Logout</Button>
@@ -134,19 +127,12 @@ const Navbar = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-start mt-2">
-                                    {
-                                        user && user.role === 'recruiter' ?
-                                            (
-                                                <></>
-                                            ) : (
-                                                <>
+                                    
                                                     <div className='flex justify-center items-center text-gray-600'>
                                                         <User size={22} />
                                                         <Button variant="link" className="text-gray-600 "><Link to='/profile'>View Profile</Link></Button>
                                                     </div>
-                                                </>
-                                            )
-                                    }
+                                                
                                     <div className='flex justify-center items-center text-gray-600'>
                                         <LogOut size={22} />
                                         <Button onClick={logoutHandler} variant="link" className="text-gray-600 cursor-pointer">Logout</Button>
@@ -158,29 +144,29 @@ const Navbar = () => {
                 </div>
             </div>
             {/* Mobile Menu Button hamburger */}
-                <div className="md:hidden flex justify-end bg-black">
-                    <Button size="icon" className='bg-black cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                        {isMenuOpen ? <X /> : <Menu size={50} />}
-                    </Button>
+            <div className="md:hidden flex justify-end bg-black">
+                <Button size="icon" className='bg-black cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    {isMenuOpen ? <X /> : <Menu size={50} />}
+                </Button>
+            </div>
+            {isMenuOpen && (
+                <div className="md:hidden border-t bg-black text-white">
+                    <ul className="flex flex-col font-medium">
+                        {user && user.role === "recruiter" ? (
+                            <>
+                                <li className='  w-[100%] text-center'><Link to="/admin/companies">Companies</Link></li>
+                                <li className=' w-[100%] text-center'><Link to="/admin/jobs">Jobs</Link></li>
+                            </>
+                        ) : (
+                            <>
+                                <li className=' w-[100%] text-center'><Link to="/">Home</Link></li>
+                                <li className=' w-[100%] text-center'><Link to="/jobs">Jobs</Link></li>
+                                <li className=' w-[100%] text-center'><Link to="/browse">Browse</Link></li>
+                            </>
+                        )}
+                    </ul>
                 </div>
-                {isMenuOpen && (
-                    <div className="md:hidden border-t bg-black text-white">
-                        <ul className="flex flex-col font-medium">
-                            {user && user.role === "recruiter" ? (
-                                <>
-                                    <li className='  w-[100%] text-center'><Link to="/admin/companies">Companies</Link></li>
-                                    <li className=' w-[100%] text-center'><Link to="/admin/jobs">Jobs</Link></li>
-                                </>
-                            ) : (
-                                <>
-                                    <li className=' w-[100%] text-center'><Link to="/">Home</Link></li>
-                                    <li className=' w-[100%] text-center'><Link to="/jobs">Jobs</Link></li>
-                                    <li className=' w-[100%] text-center'><Link to="/browse">Browse</Link></li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
-                )}
+            )}
         </div>
     )
 }

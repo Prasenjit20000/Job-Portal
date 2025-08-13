@@ -7,7 +7,11 @@ const AppliedJobTable = () => {
     return (
         <div>
             <Table>
-                <TableCaption>List of your applied jobs</TableCaption>
+                {
+                    allAppliedJobs.length <= 0 ?
+                        <TableCaption>You haven't applied for any job yet. </TableCaption>
+                        :<TableCaption>List of your applied jobs</TableCaption>
+                }
                 <TableHeader>
                     <TableHead className='text-center'>Date</TableHead>
                     <TableHead className='text-center'>Job Role</TableHead>
@@ -16,8 +20,6 @@ const AppliedJobTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        allAppliedJobs.length <= 0 ?
-                            <span>You haven't applied for any job yet. </span> :
                             allAppliedJobs?.map((item, index) => (
                                 <TableRow key={index}>
                                     <TableCell className='text-center'>{item?.createdAt?.split('T')[0]}</TableCell>

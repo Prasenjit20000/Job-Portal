@@ -94,7 +94,7 @@ const Profile = () => {
                                         {
                                             loading ?
                                                 <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
-                                                <Button onClick={handleButtonClick}>Update Profile Image</Button>
+                                                <Button className='cursor-pointer' onClick={handleButtonClick}>Update Profile Image</Button>
                                         }
                                         {/* Hidden file input */}
                                         <input
@@ -126,23 +126,29 @@ const Profile = () => {
                         <span className='text-sm text-gray-800'>{user?.phoneNumber}</span>
                     </div>
                 </div>
-                <div className='my-2'>
-                    <h1 className='font-bold text-md my-1'>Skills</h1>
-                    <div className=' flex flex-wrap gap-2'>
-                        {
+                {
+                    user?.role === 'recruiter' ? <></> :
+                        <>
+                            <div className='my-2'>
+                                <h1 className='font-bold text-md my-1'>Skills</h1>
+                                <div className=' flex flex-wrap gap-2'>
+                                    {
 
-                            user?.profile?.skills.length != 0 ? user?.profile?.skills.map((item, index) =>
-                                <Badge key={index}>{item}</Badge>
-                            ) : <span className='text-sm'>NA</span>
-                        }
-                    </div>
-                </div>
-                <div className='grid w-full max-w-sm items-center my-4'>
-                    <Label className='text-md font-bold'>Resume</Label>
-                    {
-                        isResume ? <a target='blank' href={`${user?.profile?.resume}`} className='text-gray-700 hover:underline cursor-pointer' >{user?.profile?.resumeOriginalName}</a> : <span>NA</span>
-                    }
-                </div>
+                                        user?.profile?.skills.length != 0 ? user?.profile?.skills.map((item, index) =>
+                                            <Badge key={index}>{item}</Badge>
+                                        ) : <span className='text-sm'>NA</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div className='grid w-full max-w-sm items-center my-4'>
+                                <Label className='text-md font-bold'>Resume</Label>
+                                {
+                                    isResume ? <a target='blank' href={`${user?.profile?.resume}`} className='text-gray-700 hover:underline cursor-pointer' >{user?.profile?.resumeOriginalName}</a> : <span>NA</span>
+                                }
+                            </div>
+                        </>
+                }
             </div>
             {/* ===================================== */}
             <div className='hidden md:block md:max-w-4xl mx-45 bg-white border border-gray-300 rounded-2xl my-5 p-8  shadow-lg'>
@@ -181,7 +187,7 @@ const Profile = () => {
                                         {
                                             loading ?
                                                 <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
-                                                <Button onClick={handleButtonClick}>Update Profile Image</Button>
+                                                <Button className='cursor-pointer' onClick={handleButtonClick}>Update Profile Image</Button>
                                         }
                                         {/* Hidden file input */}
                                         <input
@@ -212,28 +218,37 @@ const Profile = () => {
                         <span className='text-sm text-gray-800'>{user?.phoneNumber}</span>
                     </div>
                 </div>
-                <div className='my-2'>
-                    <h1 className='font-bold text-md my-1'>Skills</h1>
-                    <div className=' flex items-center gap-1'>
-                        {
+                {
+                    user?.role === 'recruiter' ? <></> :
+                        <>
+                            <div className='my-2'>
+                                <h1 className='font-bold text-md my-1'>Skills</h1>
+                                <div className=' flex items-center gap-1'>
+                                    {
 
-                            user?.profile?.skills.length != 0 ? user?.profile?.skills.map((item, index) =>
-                                <Badge key={index}>{item}</Badge>
-                            ) : <span className='text-sm'>NA</span>
-                        }
+                                        user?.profile?.skills.length != 0 ? user?.profile?.skills.map((item, index) =>
+                                            <Badge key={index}>{item}</Badge>
+                                        ) : <span className='text-sm'>NA</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div className='grid w-full max-w-sm items-center my-4'>
+                                <Label className='text-md font-bold'>Resume</Label>
+                                {
+                                    isResume ? <a target='blank' href={`${user?.profile?.resume}`} className='text-gray-700 hover:underline cursor-pointer' >{user?.profile?.resumeOriginalName}</a> : <span>NA</span>
+                                }
+                            </div>
+                        </>
+                }
+            </div>
+            {
+                user?.role === 'recruiter' ? <div className='md:mb-46 mb-50'></div> :
+                    <div className='max-w-4xl mx-auto bg-white rounded-2xl'>
+                        <h1 className='font-bold text-lg pl-5 my-5'>Applied Jobs</h1>
+                        <AppliedJobTable />
                     </div>
-                </div>
-                <div className='grid w-full max-w-sm items-center my-4'>
-                    <Label className='text-md font-bold'>Resume</Label>
-                    {
-                        isResume ? <a target='blank' href={`${user?.profile?.resume}`} className='text-gray-700 hover:underline cursor-pointer' >{user?.profile?.resumeOriginalName}</a> : <span>NA</span>
-                    }
-                </div>
-            </div>
-            <div className='max-w-4xl mx-auto bg-white rounded-2xl'>
-                <h1 className='font-bold text-lg pl-5 my-5'>Applied Jobs</h1>
-                <AppliedJobTable />
-            </div>
+            }
             <div>
                 <UpdateProfileDialog open={open} setOpen={setOpen} />
             </div>

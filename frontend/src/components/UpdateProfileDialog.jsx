@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from './ui/label'
 import { Input } from './ui/input'
-import {  DialogFooter } from './ui/dialog'
+import { DialogFooter } from './ui/dialog'
 import { Loader2, X } from 'lucide-react'
 import { Button } from './ui/button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -134,29 +134,34 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                     className=' border border-gray-500'
                                 />
                             </div>
-                            <div className='flex items-center justify-between gap-2 pb-3'>
-                                <Label htmlFor='skills' className='text-md pr-6'>Skills</Label>
-                                <Input
-                                    id="skills"
-                                    name="skills"
-                                    type="text"
-                                    value={input.skills}
-                                    onChange={changeEventHandler}
-                                    className='border border-gray-500'
-                                />
-                            </div>
-                            <div className='flex items-center justify-between gap-2 pb-3'>
-                                <Label htmlFor='file' className='text-md pr-1 '>Resume</Label>
-                                <Input
+                            {
+                                user?.role === 'recruiter' ? <></> :
+                                    <>
+                                        <div className='flex items-center justify-between gap-2 pb-3'>
+                                            <Label htmlFor='skills' className='text-md pr-6'>Skills</Label>
+                                            <Input
+                                                id="skills"
+                                                name="skills"
+                                                type="text"
+                                                value={input.skills}
+                                                onChange={changeEventHandler}
+                                                className='border border-gray-500'
+                                            />
+                                        </div>
+                                        <div className='flex items-center justify-between gap-2 pb-3'>
+                                            <Label htmlFor='file' className='text-md pr-1 '>Resume</Label>
+                                            <Input
 
-                                    id="file"
-                                    name="file"
-                                    type="file"
-                                    accept="application/pdf"
-                                    onChange={fileChangeHandler}
-                                    className=' border border-gray-500 cursor-pointer'
-                                />
-                            </div>
+                                                id="file"
+                                                name="file"
+                                                type="file"
+                                                accept="application/pdf"
+                                                onChange={fileChangeHandler}
+                                                className=' border border-gray-500 cursor-pointer'
+                                            />
+                                        </div>
+                                    </>
+                            }
                         </div>
 
 
@@ -208,30 +213,35 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                         className='col-span-3 border border-gray-500'
                                     />
                                 </div>
-                                <div className='grid grid-cols-4 items-center gap-4'>
-                                    <Label htmlFor='skills' className='px-12 text-md'>Skills</Label>
-                                    <Input
+                                {
+                                    user?.role === 'recruiter' ? <></> :
+                                        <>
+                                            <div className='grid grid-cols-4 items-center gap-4'>
+                                                <Label htmlFor='skills' className='px-12 text-md'>Skills</Label>
+                                                <Input
 
-                                        id="skills"
-                                        name="skills"
-                                        type="text"
-                                        value={input.skills}
-                                        onChange={changeEventHandler}
-                                        className='col-span-3 border border-gray-500'
-                                    />
-                                </div>
-                                <div className='grid grid-cols-4 items-center gap-4'>
-                                    <Label htmlFor='file' className='px-12 text-md '>Resume</Label>
-                                    <Input
+                                                    id="skills"
+                                                    name="skills"
+                                                    type="text"
+                                                    value={input.skills}
+                                                    onChange={changeEventHandler}
+                                                    className='col-span-3 border border-gray-500'
+                                                />
+                                            </div>
+                                            <div className='grid grid-cols-4 items-center gap-4'>
+                                                <Label htmlFor='file' className='px-12 text-md '>Resume</Label>
+                                                <Input
 
-                                        id="file"
-                                        name="file"
-                                        type="file"
-                                        accept="application/pdf"
-                                        onChange={fileChangeHandler}
-                                        className='col-span-3 border border-gray-500 cursor-pointer'
-                                    />
-                                </div>
+                                                    id="file"
+                                                    name="file"
+                                                    type="file"
+                                                    accept="application/pdf"
+                                                    onChange={fileChangeHandler}
+                                                    className='col-span-3 border border-gray-500 cursor-pointer'
+                                                />
+                                            </div>
+                                        </>
+                                }
                             </div>
                         </div>
                         <DialogFooter>

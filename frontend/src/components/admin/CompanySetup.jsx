@@ -78,8 +78,8 @@ const CompanySetup = () => {
             <Navbar />
             <div className='max-w-xl mx-4 md:mx-auto my-10'>
                 <form >
-                    <div className='flex items-center cursor-pointer'>
-                        <Button onClick={() => navigate('/admin/companies')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold'>
+                    <div className='flex items-center '>
+                        <Button onClick={() => navigate('/admin/companies')} variant='outline' className='flex items-center gap-2 text-gray-500 font-semibold cursor-pointer'>
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
