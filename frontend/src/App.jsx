@@ -1,4 +1,3 @@
-import Navbar from "./components/shared/Navbar"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Login from "./components/auth/Login"
 import Signup from "./components/auth/Signup"
@@ -49,32 +48,31 @@ const appRouter = createBrowserRouter([
   // admit routes
   {
     path : '/admin/companies',
-    // element : <ProtectedRoute><Companies/></ProtectedRoute>
-    element : <Companies/>
+    element : <ProtectedRoute><Companies/></ProtectedRoute>
   },
   {
     path : '/admin/companies/create',
-    element : <CreateCompany/>
+    element : <ProtectedRoute><CreateCompany/></ProtectedRoute>
   },
   {
     path : '/admin/companies/:id',
-    element : <CompanySetup/>
+    element : <ProtectedRoute><CompanySetup/></ProtectedRoute>
   },
   {
     path : '/admin/jobs',
-    element : <AdminJobs/>
+    element : <ProtectedRoute><AdminJobs/></ProtectedRoute>
   },
   {
     path : '/admin/job/create',
-    element : <PostJob/>
+    element : <ProtectedRoute><PostJob/></ProtectedRoute>
   },
   {
     path : '/admin/job/:id/applicants',
-    element : <Applicants/>
+    element : <ProtectedRoute><Applicants/></ProtectedRoute>
   },
   {
     path : '/admin/job/update/:id',
-    element : <UpdateJob/>
+    element : <ProtectedRoute><UpdateJob/></ProtectedRoute>
   }
 ])
 

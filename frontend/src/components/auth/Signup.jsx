@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { RadioGroup } from "@/components/ui/radio-group"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { USER_API_END_POINT } from '../utils/constants'
 import { toast } from "sonner"
@@ -25,7 +25,7 @@ const Signup = () => {
   })
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {loading} = useSelector(store => store.auth)
+  const {loading,user} = useSelector(store => store.auth)
 
   const changeEventHandler = (e) => {
     // what is change in the input fields(except file input) that 
@@ -57,7 +57,6 @@ const Signup = () => {
         },
         withCredentials: true,
       });
-      console.log(res);
       if (res.data.success) {
         navigate("/login")
         toast.success(res.data.message)
@@ -69,9 +68,12 @@ const Signup = () => {
     finally {
       dispatch(setLoading(false));
     }
-
   }
-
+    useEffect(()=>{
+      if(user){
+        navigate('/');
+      }
+    },[]);
   return (
     <div>
       <Navbar />

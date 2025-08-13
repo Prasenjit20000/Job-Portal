@@ -17,14 +17,14 @@ import axios from 'axios'
 import { JOB_API_END_POINT } from '../utils/constants'
 import { toast } from 'sonner'
 import { setLoading } from '../../redux/authSlice'
-import { Loader2 } from 'lucide-react'
+import { Loader2, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-
+import Footer from '../Footer'
 
 const PostJob = () => {
     const navigate = useNavigate();
     const { allCompanies } = useSelector(store => store.company);
-    const {loading} = useSelector(store=>store.auth);
+    const { loading } = useSelector(store => store.auth);
     const dispatch = useDispatch();
     // console.log(allCompanies);
     // const [isLoading,setIsLoading] = useState(false);
@@ -42,21 +42,25 @@ const PostJob = () => {
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
+    const selectJobTypeChangeHandler = (value) => {
+        // const selectedCompany = allCompanies.find((company) => company.name === value);
+        setInput({ ...input, jobType: value });
+    }
     const selectChangeHandler = (value) => {
         const selectedCompany = allCompanies.find((company) => company.name === value);
         setInput({ ...input, companyId: selectedCompany?._id });
     }
-    const submitHandler = async(e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         dispatch(setLoading(true));
         try {
-            const res = await axios.post(`${JOB_API_END_POINT}/post`,input,{
-                headers : {
-                    'Content-Type' : 'application/json'
+            const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                withCredentials : true
+                withCredentials: true
             });
-            if(res.data.success){
+            if (res.data.success) {
                 toast.success(res.data.message);
                 navigate('/admin/jobs');
             }
@@ -64,15 +68,21 @@ const PostJob = () => {
             console.log(error);
             toast.error(error.response.data.message);
         }
-        finally{
+        finally {
             dispatch(setLoading(false));
         }
     }
     return (
         <div>
             <Navbar />
-            <div className='flex items-center justify-center w-screen my-5'>
-                <form onSubmit={submitHandler} className='p-4 border border-gray-200 shadow-lg rounded-md gap-4'>
+            <div className='flex flex-col items-center justify-center  my-5'>
+
+                <form onSubmit={submitHandler} className='p-4 md:border border-gray-200 md:shadow-lg rounded-md gap-4'>
+                    <div className='flex justify-end'>
+                        <X className='cursor-pointer text-gray-500 hover:text-black' onClick={() => navigate('/admin/jobs')} />
+                    </div>
+
+                    <div className='flex items-center text-xl font-bold mb-10 md:mb-5'>Setup Job</div>
                     <div className='grid grid-cols-2 gap-x-8 gap-y-4'>
                         <div>
                             <Label>Title</Label>
@@ -125,14 +135,25 @@ const PostJob = () => {
                             />
                         </div>
                         <div>
-                            <Label>Job Type</Label>
-                            <Input
-                                type='text'
-                                name='jobType'
-                                value={input.jobType}
-                                onChange={changeEventHandler}
-                                className='focus-visible:ring-offset-0 focus-visible:ring-0 my-1'
-                            />
+                            <Label className='my-1'>Job Type</Label>
+                            {
+                            <Select onValueChange={selectJobTypeChangeHandler}>
+                                <SelectTrigger className='w-[100%] cursor-pointer '>
+                                    <SelectValue placeholder='Select job type' />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {
+                                            ['Part Time','Full Time','Internship'].map((type) => {
+                                                return (
+                                                    <SelectItem className='cursor-pointer' value={type}>{type}</SelectItem>
+                                                )
+                                            })
+                                        }
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        }
                         </div>
                         <div>
                             <Label>Experience Level</Label>
@@ -156,7 +177,7 @@ const PostJob = () => {
                         </div>
                         {
                             <Select disabled={allCompanies.length === 0} onValueChange={selectChangeHandler}>
-                                <SelectTrigger className='w-[100%] '>
+                                <SelectTrigger className='w-[100%] cursor-pointer '>
                                     <SelectValue placeholder='Select a Company' />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -164,7 +185,7 @@ const PostJob = () => {
                                         {
                                             allCompanies.map((company) => {
                                                 return (
-                                                    <SelectItem value={company.name}>{company?.name}</SelectItem>
+                                                    <SelectItem className='cursor-pointer' value={company.name}>{company?.name}</SelectItem>
                                                 )
                                             })
                                         }
@@ -174,14 +195,14 @@ const PostJob = () => {
                         }
                     </div>
                     {
-                        loading ? <Button className='w-full mt-4' ><Loader2 className='animate-spin'/></Button>: <Button className='w-full mt-4'>Post New Job</Button>
+                        loading ? <Button className='w-full mt-4' ><Loader2 className='animate-spin' /></Button> : <Button className='w-full mt-4 cursor-pointer'>Post Job</Button>
                     }
-
                     {
                         allCompanies.length === 0 && <p className='text-xs text-red-600 text-center my-3 font-bold '> *Please register a company first, before posting a job.</p>
                     }
                 </form>
             </div>
+            <Footer />
         </div>
     )
 }

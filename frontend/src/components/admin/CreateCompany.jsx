@@ -9,12 +9,12 @@ import { COMPANY_API_END_POINT } from '../utils/constants'
 import { toast } from 'sonner'
 import { useDispatch } from 'react-redux'
 import { setSingleCompany } from '../../redux/companySlice'
+import Footer from '../Footer'
 const CreateCompany = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [companyName, setCompanyName] = useState('');
     const registerNewCompany = async () => {
-        console.log(companyName);
         try {
             const res = await axios.post(`${COMPANY_API_END_POINT}/register`, { companyName }, {
                 headers: {
@@ -49,10 +49,11 @@ const CreateCompany = () => {
                     onChange={(e) => setCompanyName(e.target.value)}
                 />
                 <div className='flex items-center gap-2 my-10'>
-                    <Button onClick={() => navigate('/admin/companies')}>Cancel</Button>
-                    <Button className='' variant='outline' onClick={registerNewCompany}>Continue</Button>
+                    <Button onClick={() => navigate('/admin/companies')} className='cursor-pointer'>Cancel</Button>
+                    <Button className='cursor-pointer' variant='outline' onClick={registerNewCompany} >Continue</Button>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

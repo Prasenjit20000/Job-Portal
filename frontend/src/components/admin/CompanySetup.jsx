@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import getCompanyById from '../../hooks/getCompanyById'
+import Footer from '../Footer'
 
 const CompanySetup = () => {
     const navigate = useNavigate();
@@ -53,7 +54,6 @@ const CompanySetup = () => {
                 withCredentials: true,
             });
             if (res.data.success) {
-                console.log(res.data);
                 navigate('/admin/companies');
                 toast.success(res.data.message);
             }
@@ -129,7 +129,7 @@ const CompanySetup = () => {
                             <Input
                                 type='file'
                                 accept='image/*'
-                                className='md:w-70 w-55'
+                                className='md:w-70 w-55 cursor-pointer'
                                 onChange={changeFileHandler}
                             />
                         </div>
@@ -140,6 +140,7 @@ const CompanySetup = () => {
                     }
                 </form>
             </div>
+            <Footer/>
         </div>
     )
 }

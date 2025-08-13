@@ -165,7 +165,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                         </div>
 
 
-                        <div className='hidden md:grid pb-4'>
+                        <div className='hidden  md:grid pb-4'>
                             {/* in html forms for every inputs and corresponding labels have same id */}
                             <div className='grid gap-4 py-4'>
                                 <div className='grid grid-cols-4 items-center gap-4'>
@@ -250,11 +250,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                 <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/3 cursor-pointer'>Close</Button>
                                 {
                                     loading ?
-                                        <Button className='w-1/3'><Loader2 className='animate-spin' />Please wait</Button> :
+                                        <Button className='w-1/2'><Loader2 className='animate-spin' />Please wait</Button> :
                                         <Button type='submit' className='w-1/3 cursor-pointer'>Update</Button>
                                 }
                             </div>
-                            <div className='hidden sm:flex w-[75%] gap-2'>
+                            <div className='hidden md:flex w-[75%] gap-2'>
                                 <Button variant='outline' onClick={closeHandler} className='border border-gray-400 w-1/2 cursor-pointer'>Close</Button>
                                 {
                                     loading ?
@@ -262,7 +262,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                         <Button type='submit' className='w-1/2 cursor-pointer'>Update</Button>
                                 }
                             </div>
-
                         </DialogFooter>
                     </form>
                 </DialogContent>

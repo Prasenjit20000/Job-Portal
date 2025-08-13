@@ -21,7 +21,7 @@ const HeroSection = () => {
                     Search, Apply & <br />
                     Get Your <span className='text-[#6A38C2]'>Dream Jobs</span>
                 </h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel repudiandae non aliquid voluptates blanditiis ducimus!</p>
+                <p>Your dream job is just a search away. Discover companies that value your talent, apply with ease, and take the leap toward a career you’ll love.</p>
                 <div className='flex justify-center'>
                     <div className=' md:w-[80%] flex justify-center'>
                         <div className=' md:w-[40%] flex items-center shadow-lg border border-gray-300 pl-7 md:rounded-l-full rounded-l-md '>

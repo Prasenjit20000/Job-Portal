@@ -13,10 +13,13 @@ export const registerCompany = async (req, res) => {
             })
         }
 
-        let company = await Company.findOne({ name: companyName });
+        let company = await Company.findOne({
+            name: { $regex: `^${companyName}$`, $options: 'i' }
+        });
+
         if (company) {
             return res.status(400).json({
-                message: "You can't register same company.",
+                message: "Company already exist.",
                 success: false
             })
         }
@@ -93,7 +96,7 @@ export const updateCompany = async (req, res) => {
         }
 
 
-        const updatedData = { name, description, website, location, logo : company.logo }
+        const updatedData = { name, description, website, location, logo: company.logo }
         if (file) {
             const fileUri = getDataUrl(file);
             const cloudResponse = await cloudinary.uploader.upload(fileUri.content);

@@ -56,11 +56,13 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   }
+  // when a logged in user try to visit the login page again this will redirect logged in users to home page
+  // when login page visit this useeffect execute automatically only once
   useEffect(()=>{
     if(user){
       navigate('/');
     }
-  })
+  },[]);
   return (
     <div>
       <Navbar />
