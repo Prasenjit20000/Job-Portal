@@ -22,7 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions = {
-    origin : '*',
+    origin: [
+    'http://localhost:5173',
+    'https://job-hunt-la5n.onrender.com'
+  ],
     credentials : true
 }
 app.use(cors(corsOptions));
