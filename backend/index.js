@@ -7,11 +7,14 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from './routes/company.route.js';
 import jobRoute from './routes/job.route.js';
 import applicationRoute from './routes/application.route.js';
+import path from "path";
 
 
 dotenv.config({});
-
+connectDB();
+const PORT = process.env.PORT || 8000;
 const app = express();
+const _dirname = path.resolve();
 
 
 // middleware
@@ -37,9 +40,13 @@ app.use('/api/v1/application',applicationRoute);
 // http://localhost:8000/api/v1/user/login
 // http://localhost:8000/api/v1/user/profile/update
 
+app.use(express.static(path.join(_dirname, "frontend/dist")));
+app.get("/*splat", (_, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+});
 // server on
-const PORT = process.env.PORT || 3000;
-app.listen(PORT,()=>{
-    connectDB();
+
+app.listen(PORT,()=>{ 
     console.log(`Server running on ${PORT}`)
 }) 
+
