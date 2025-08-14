@@ -43,15 +43,19 @@ const Login = () => {
       });
       if (res.data.success) {
         // because when login done in backend controller it returns user also
+        console.log(res.data.token)
+        console.log(res.data.user)
         dispatch(setUser(res.data.user))
         navigate("/")
         toast.success(res.data.message)
       }
     } catch (error) {
+      console.log("hello i am here");
       toast.error(error.response.data.message)
       console.log(error)
     }
     finally{
+      console.log("hello i am here");
       // loading end here
       dispatch(setLoading(false));
     }
