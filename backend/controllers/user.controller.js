@@ -94,7 +94,6 @@ export const login = async (req, res) => {
             role: user.role,
             profile: user.profile
         }
-        console.log(token);
         return res.status(200).cookie('token', token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true,  sameSite: "strict" }).json({
             message: `Welcome back ${user.fullname}`,
             user,  //here i send user also which store in redux-store in frontend for maintain the states
